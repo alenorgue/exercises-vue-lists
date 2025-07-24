@@ -17,26 +17,30 @@
     <h1>Lista de frutas</h1>
 
     <ul>
-      <!-- Aquí irá la lista de frutas -->
+      <li v-for="fruta in frutas" :key="fruta">{{ fruta.emoji }} {{ fruta.name }}</li>
     </ul>
 
-    <p>Total de frutas: <!-- total aquí --></p>
+ 
+
+    <p>Total de frutas: {{ frutas.length }}</p>
 
     <label for="nuevaFruta">Añadir fruta: </label>
-    <select>
+    <select v-model="nuevaFruta" id="nuevaFruta">
       <option disabled selected>Selecciona una fruta</option>
-      <!-- Opciones de frutas aquí -->
+      <option v-for="fruta in frutasDisponibles" :key="fruta.name" :value="fruta">
+        {{ fruta.name }} {{ fruta.emoji }}
+      </option>
     </select>
-    <button>Añadir</button>
+    <button @click="addFruta">Añadir</button>
 
     <br>
-    <button>Eliminar última fruta</button>
+    <button @click="removeLastFruta">Eliminar última fruta</button>
   </div>
 
-  <script>
+ <script type="module">
     import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
-    
-    const frutasDisponibles = ref([
+
+       const frutasDisponibles = ref([
       { name: 'Manzana', emoji: '🍎' },
       { name: 'Banana', emoji: '🍌' },
       { name: 'Pera', emoji: '🍐' },
@@ -49,7 +53,39 @@
       { name: 'Kiwi', emoji: '🥝' }
 
     ]);
+    
+createApp({
+      setup() {
+     
+        const frutas = ref([ { name: 'Manzana', emoji: '🍎' },
+      { name: 'Banana', emoji: '🍌' },
+      { name: 'Pera', emoji: '🍐' },]);
+    
+        const nuevaFruta = ref(null);
 
+        const addFruta = () => {
+          if (nuevaFruta.value) {
+            frutas.value.push({ name: nuevaFruta.value.name, emoji: nuevaFruta.value.emoji });
+            nuevaFruta.value = null;
+          }
+        };
+
+        const removeLastFruta = () => {
+          if (frutas.value.length > 0) {
+            frutas.value.pop();
+          }
+        };
+
+        return {
+          
+          frutasDisponibles,
+          frutas,
+          nuevaFruta,
+          addFruta,
+          removeLastFruta
+        };
+      }
+    }).mount('#app');
 
 
   </script>
