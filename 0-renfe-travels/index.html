@@ -35,11 +35,11 @@
   <div id="app">
     <h1>Available Trips</h1>
     <ul>
-      <li class="trip-card">
-        <strong>Ciudad Origen → Ciudad Destino</strong><br>
-        Time: 00:00 AM<br>
-        Train Type: AVE<br>
-        Price: €
+      <li v-for="trip in trips" :key="trip.id" class="trip-card">
+        <strong>{{ trip.origin }} → {{ trip.destination }}</strong><br>
+        Time: {{ trip.time }}<br>
+        Train Type: {{ trip.trainType }}<br>
+        Price: €{{ trip.price }}
       </li>
     </ul>
   </div>

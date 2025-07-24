@@ -17,7 +17,7 @@
   <main id="app">
     <div>
       <h1>Counter</h1>
-      <span class="value">{{ value }}</span>
+      <span class="value" :style="{'color': value > 0 ? 'green' : value < 0 ? 'red' : 'black'}">{{ value }}</span>
       <div>
         <button class="btn btn-danger decrease" @click="decrease"><i class="fa fa-minus" aria-hidden="true"></i></button>
         <button class="btn btn-secondary reset" @click="reset">Reset</button>

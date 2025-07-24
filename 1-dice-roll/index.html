@@ -18,7 +18,7 @@
     <button @click="clearHistory" id="clear-button" class="red">Clear History</button>
 
     <ul id="roll-history">
-     <li>En la tirada X Ha salido el número Y</li>
+     <li v-for="h in history" :key="h.id">{{ h }}</li>
     </ul>
   </main>
   <script type="module">
@@ -34,13 +34,15 @@
         const history = ref([])
 
         const roll = () => {
-          // Implementame, por favor!
+          const rolledNumber = getRandomDiceNumber()
+          dice.value = rolledNumber
+          history.value.push(`En la tirada ${history.value.length + 1} Ha salido el número ${rolledNumber}`)
         }
 
         const clearHistory = () => {
-          // Falta codificar !!
-          
+          history.value = []
         }
+      
         return {
           dice,
           roll,
